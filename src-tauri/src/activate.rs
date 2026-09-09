@@ -312,11 +312,12 @@ pub async fn deactivate_license_api(app: AppHandle) -> Result<ActivationResponse
 pub async fn validate_license_api(_app: AppHandle) -> Result<ValidateResponse, String> {
     Ok(ValidateResponse {
         is_active: true,
-        last_validated_at: Some(chrono::Utc::now().to_rfc3339()),
+        last_validated_at: Some("2026-01-01T00:00:00Z".to_string()),
         is_dev_license: true,
     })
 }
 
+#[tauri::command]
 pub fn mask_license_key_cmd(license_key: String) -> String {
     if license_key.len() <= 8 {
         return "*".repeat(license_key.len());
